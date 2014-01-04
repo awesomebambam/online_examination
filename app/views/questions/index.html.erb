@@ -1,0 +1,33 @@
+<h1>Listing questions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Options</th>
+      <th>Correct option</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @exam.questions.each do |question| %>
+      <tr>
+        <td><%= question.title %></td>
+        <td><%= question.description %></td>
+        <td><%= question.option_list %></td>
+        <td><%= question.correct_option %></td>
+        <td><%= link_to 'Show', exam_question_path(@exam, question) %></td>
+        <td><%= link_to 'Edit', edit_exam_question_path(@exam, question) %></td>
+        <td><%= link_to 'Destroy', exam_question_path(@exam,question), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Question', new_exam_question_path(@exam) %>

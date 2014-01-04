@@ -1,8 +1,18 @@
 OnlineExamination::Application.routes.draw do
   devise_for :users
   get "welcome/index"
-  resources :exams
+  resources :exams do
+    #/exams/:exam_id/questions => questions#index
+    resources :questions  
+  end
   root to: "exams#index"
+  #  namespace :u do
+  #get 'exam/:id/result' => 'exams#result'
+  #get 'exam/:id/take' => 'exams#take'
+  #get 'exam/:id/question/:qindex', controller: 'exams', action: 'question'
+  #post 'exam/:id/answer/:qindex', controller: 'exams', action: 'answer'
+  #  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
