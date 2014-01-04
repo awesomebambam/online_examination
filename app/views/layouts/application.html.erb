@@ -1,14 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>OnlineExamination</title>
+  <title>OnlineExam</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<%= yield %>
+<div class="container">
+
+  <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#"> Prometric Online Examination </a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><%= link_to "About Us" %></li>
+            </ul>
+          </div>
+          <div id="user_nav">
+               <% if user_signed_in? %>
+                           Logged in as <strong><%= current_user.email %></strong>.
+                       <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
+                       <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+                     <% else %>
+                             <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
+                         <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+                <% end %>
+               
+          </div>
+    </div>
+
+    </div>
+    <div class="row"><br />
+      <br />
+    <div class="span9"><%= yield %></div>
+    <div class="span3">
+      <h2>Time left</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>        
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
