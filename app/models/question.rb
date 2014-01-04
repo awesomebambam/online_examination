@@ -1,10 +1,7 @@
-class Exam
+class Question
   include Mongoid::Document
   field :title, type: String
   field :description, type: String
-  field :notes, type: String
-  field :time, type: Integer
-
-
-  
+  field :options, type: Array
+  field :correct_option, type: Integer
 end

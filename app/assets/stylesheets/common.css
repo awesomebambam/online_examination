@@ -1,0 +1,14 @@
+#user_nav {
+
+  float: right;
+  padding-right: 50px;
+  font-size: 14px;
+  padding-top: 5px;
+
+}
+
+.navbar-inner {
+
+  padding-left: 50px;
+
+}
