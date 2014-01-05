@@ -19,10 +19,16 @@
     <%= f.label :description %><br>
     <%= f.text_field :description %>
   </div>
+    <% i = 0 %>
+    
+   <% @question.options.each do |key, value|%>
   <div class="field">
-    <%= f.label :option_list %><br>
-    <%= f.text_field :option_list %>
+    <%= f.label :options , "Option #{i+1}"%><br>
+    <%= f.text_field  "options[#{i}]",:value => value %>
   </div>
+   <% i = i+1 %>
+<% end %>
+
   <div class="field">
     <%= f.label :correct_option %><br>
     <%= f.number_field :correct_option %>

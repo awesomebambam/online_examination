@@ -25,6 +25,7 @@ class QuestionsController < ApplicationController
   # POST /questions.json
   def create
     @question = @exam.questions.build(question_params)
+    binding.pry 
     if @question.save
       redirect_to exam_question_path(@exam, @question), notice: 'Question was successfully created.'
     else
@@ -37,12 +38,11 @@ class QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.update(question_params)
-        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
-        format.json { head :no_content }
+        format.html { redirect_to exam_question_path(@exam, @question), notice: 'Question was successfully updated.' }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
       end
+      
     end
   end
 
@@ -64,8 +64,13 @@ class QuestionsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def question_params
-    params.require(:question).permit(:title, :description, :option_list, :correct_option)
-  end
+    params.require(:question).permit(:title, :description,:correct_option)
+    
+    params.require(:question).tap do |whitelisted|
+      whitelisted[:options] = params[:question][:options]
+    end
+end
+  
 
   def set_exam
     @exam = Exam.find(params[:exam_id])

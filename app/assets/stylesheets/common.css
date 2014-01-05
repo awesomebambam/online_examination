@@ -12,3 +12,17 @@
   padding-left: 50px;
 
 }
+
+
+#exam_container_table th {
+  padding: 10px;
+  border: 2px solid rgb(149,149,160);
+
+}
+
+
+#exam_container_table td {
+  padding: 10px;
+  border: 2px solid silver;
+}
+
