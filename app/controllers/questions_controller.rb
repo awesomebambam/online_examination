@@ -25,7 +25,6 @@ class QuestionsController < ApplicationController
   # POST /questions.json
   def create
     @question = @exam.questions.build(question_params)
-    binding.pry 
     if @question.save
       redirect_to exam_question_path(@exam, @question), notice: 'Question was successfully created.'
     else

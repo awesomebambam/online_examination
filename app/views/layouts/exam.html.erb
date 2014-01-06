@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title><%= @exam.title %></title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div class="container">
+  <%= bootstrap_flash %> 
+  <div id="exam-container">
+      <h1><%= @exam.title %> </h1> 
+          <div class='pull-right'>
+          </div>
+         <%= yield %>
+  </div>
+</div>
+
+</body>
+</html>

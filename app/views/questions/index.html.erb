@@ -1,29 +1,31 @@
 <h1>Listing questions</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+<% n = 0 %>
+<% @exam.questions.each do |question| %>
+  <%  n = n+1 %>
+  <p><% @question = question %>
+<strong><%= n %>. Title:</strong>
+  <%= @question.title %>
+</p>
 
-  <tbody>
-    <% @exam.questions.each do |question| %>
-      <tr>
-        <td><%= question.title %></td>
-        <td><%= question.description %></td>
-        <td><%= link_to 'Show', exam_question_path(@exam, question) %></td>
-        <td><%= link_to 'Edit', edit_exam_question_path(@exam, question) %></td>
-        <td><%= link_to 'Destroy', exam_question_path(@exam,question), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<p>
+  <strong>Description:</strong>
+  <%= @question.description %>
+</p>
 
-<br>
+<p>
+<strong>Options:</strong><br/>
+  <%= render 'options' %>
+</p>
+<p>
 
+
+<%= link_to 'Edit', edit_exam_question_path(@exam, @question) %> |
+<%= link_to 'Delete', exam_question_path(@exam,question), method: :delete, data: { confirm: 'Are you sure?' } %> |
+<br /> 
+<% end %>
+<div id="IndexNavigation">
+<%= link_to 'Back', exams_path %> |
 <%= link_to 'New Question', new_exam_question_path(@exam) %>
+</div>
+</p>

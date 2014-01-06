@@ -1,0 +1,8 @@
+<p>
+<% @question.options.each do |key, value |    %> 
+  <%= hidden_field_tag 'question_id', @question.id %>
+  <%= radio_button_tag(@question.id, key, false, disabled: false) %>
+  <%= value %>    
+  <br />
+<% end %>
+</p>

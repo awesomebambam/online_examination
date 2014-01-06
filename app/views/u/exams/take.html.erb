@@ -1,0 +1,6 @@
+<div id = "content">
+  <p> <%= @exam.description %> </p>
+  <p> <%= @exam.notes %></p>
+</div>
+
+<%= link_to 'Start Exam', "/u/exam/#{@exam.id}/question/1" %> 

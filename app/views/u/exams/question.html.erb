@@ -1,0 +1,18 @@
+<%= form_tag "/u/exam/#{@exam.id}/answer/#{@qindex+1}" do %>
+ 
+  <table id="u-options"> 
+    <tr> 
+    <%= @question.title %>  
+  </tr>
+  <tr>
+  <%= @question.description %>
+  </tr>
+  <tr>
+  <%= render 'options' %>
+</tr>
+</table>
+
+<%=submit_tag @qcount == @qindex + 1 ? 'Finish' : 'Next →', class: 'btn btn-primary btn-large next-question' %>
+
+
+<% end %>
