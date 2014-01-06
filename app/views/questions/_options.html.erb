@@ -1,0 +1,10 @@
+
+<% @question.options.each do |key, value |    %> 
+
+  <% anwer = false %>
+  <% answer = true if key == @question.correct_option %>
+  <%= radio_button_tag(key, key, answer, disabled: true) %>
+  <%= value %>    
+
+  <br />
+<% end %>

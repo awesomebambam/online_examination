@@ -1,3 +1,6 @@
 <h1>New question</h1>
-<% @question.options = ['','','',''] %>
+
+<% @question.options = {} %>
+<% 4.downto(1){ |n| @question.options.merge!("#{n}" => "")} %>
+
 <%= render 'form' %> 

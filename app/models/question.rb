@@ -3,7 +3,7 @@ class Question
   field :title, type: String
   field :description, type: String
   field :options, type: Hash
-  field :correct_option, type: Integer
+  field :correct_option, type: String
 
   belongs_to :exam
 
@@ -15,3 +15,4 @@ class Question
  #   (options||[]).join(',')
  # end
 end
+

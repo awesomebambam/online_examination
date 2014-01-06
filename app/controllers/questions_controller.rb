@@ -14,7 +14,7 @@ class QuestionsController < ApplicationController
 
   # GET /questions/new
   def new
-    @question = Question.new
+    @question = Question.new()
   end
 
   # GET /questions/1/edit
@@ -51,8 +51,7 @@ class QuestionsController < ApplicationController
   def destroy
     @question.destroy
     respond_to do |format|
-      format.html { redirect_to questions_url }
-      format.json { head :no_content }
+      format.html { redirect_to exam_questions_path(@exam) }
     end
   end
 
