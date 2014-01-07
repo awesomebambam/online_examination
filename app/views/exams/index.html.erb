@@ -18,7 +18,7 @@
         <td><%= exam.description %></td>
         <td><%= exam.notes %></td>
         <td><%= exam.time %></td>
-      <% if current_user.role == "admin" && user_signed_in? %>
+      <% if (current_user.role == "admin" || current_user.role == "superadmin") && user_signed_in? %>
         <td><%= link_to 'Show/Add Questions', exam_questions_path(exam)%>
         <td><%= link_to 'Show', exam %></td>
         <td><%= link_to 'Edit', edit_exam_path(exam) %></td>
@@ -33,6 +33,6 @@
 </div>
 
 <br>
-<% if current_user.role == "admin" && user_signed_in? %>
+<% if (current_user.role == "admin" || current_user.role == "superadmin") && user_signed_in? %>
   <%= link_to 'New Exam', new_exam_path %>
 <% end %>
