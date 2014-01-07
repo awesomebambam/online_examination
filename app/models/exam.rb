@@ -7,5 +7,10 @@ class Exam
   field :time, type: Integer #time in minutes
 
   has_many :questions
+
+  def time_left?(start_time)
+    duration = self.time * 1.minute
+    duration - (Time.now - start_time) > 0
+  end
   
 end

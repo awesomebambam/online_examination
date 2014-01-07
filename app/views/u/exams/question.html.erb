@@ -1,5 +1,7 @@
 <%= form_tag "/u/exam/#{@exam.id}/answer/#{@qindex+1}" do %>
- 
+  <span id="time-left" class="unselectable">
+    <%= render 'time_left' %>
+  </span>
   <table id="u-options"> 
     <tr> 
     <%= @question.title %>  
@@ -13,6 +15,37 @@
 </table>
 
 <%=submit_tag @qcount == @qindex + 1 ? 'Finish' : 'Next →', class: 'btn btn-primary btn-large next-question' %>
-
-
 <% end %>
+
+<script type="text/javascript">
+  var timeLeft = document.getElementById('time-left')
+  
+  var padTwoZeros = function(num){
+    return ('0' + num).slice(-2)
+  }
+
+  var updateTimeSpan = function(hours, minutes, seconds){
+    timeLeft.innerHTML = padTwoZeros(hours) + ":" + padTwoZeros(minutes) + ":" + padTwoZeros(seconds)
+  }
+
+  var updateTimeLeft = function() {
+    tokens = timeLeft.innerHTML.split(':')
+    hours = +tokens[0]
+    minutes = +tokens[1]
+    seconds = +tokens[2]
+
+    seconds --
+    if (seconds <= 0) {
+      seconds = 60
+      minutes --
+      if (minutes <= 0) {
+        minutes = 60
+        hours --
+      }
+    }
+
+    updateTimeSpan(hours, minutes, seconds)
+    setTimeout(updateTimeLeft, 1000)
+  }
+  setTimeout(updateTimeLeft, 1000)
+</script>

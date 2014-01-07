@@ -26,3 +26,12 @@
   border: 2px solid silver;
 }
 
+#time-left {
+ float: right;
+ color: red;
+ font-size: 20px;
+
+}
+
+
+

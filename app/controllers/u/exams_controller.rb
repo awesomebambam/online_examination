@@ -24,6 +24,10 @@ class U::ExamsController < ApplicationController
       @qcount = @exam.questions.count
       @question = @exam.questions.order_by(:created_at => 'ASC')[@qindex]
       
+      if !@exam.time_left?(session[:start_time])
+        redirect_to "/u/exam/#{@exam.id}/result", alert: "Your time is up"
+        return
+      end
       if @question.correct_option ==  @answer 
          session[:marks] += 1
       end
