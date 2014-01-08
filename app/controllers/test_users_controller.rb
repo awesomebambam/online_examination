@@ -26,6 +26,7 @@ class TestUsersController < ApplicationController
   # POST /test_users.json
   def create
     @user = User.new
+    @user.name = test_user_params["name"]
     @user.email = test_user_params["email"]
     @user.role = test_user_params["role"]
     @user.password = test_user_params["password"]
@@ -68,7 +69,7 @@ class TestUsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_test_user
-      @test_user = TestUser.find(params[:id])
+      @test_user = User.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
