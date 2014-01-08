@@ -51,10 +51,9 @@ class TestUsersController < ApplicationController
   def update
     @test_user.name = params[:user][:name]
     @test_user.email = params[:user][:email]
-    @test_user.role = params[:user][:role]
+    @test_user.role = params[:role]
     @test_user.password = params[:user][:password] if params[:user][:password] != ""
 
-    
     respond_to do |format|
       if @test_user.update()
         format.html { redirect_to test_users_path, notice: 'User was successfully updated.' }

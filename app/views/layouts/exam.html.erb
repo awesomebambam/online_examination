@@ -7,16 +7,6 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<div class="container">
-  <%= bootstrap_flash %> 
-  <div id="exam-container">
-      <h1><%= @exam.title %> </h1> 
-          <div class='pull-right'>
-          </div>
          <%= yield %>
-  </div>
-</div>
-
 </body>
 </html>

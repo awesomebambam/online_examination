@@ -1,21 +1,111 @@
-<%= form_tag "/u/exam/#{@exam.id}/answer/#{@qindex+1}" do %>
-  <span id="time-left" class="unselectable">
-    <%= render 'time_left' %>
-  </span>
-  <table id="u-options"> 
-    <tr> 
-    <%= @question.title %>  
-  </tr>
-  <tr>
-  <%= @question.description %>
-  </tr>
-  <tr>
-  <%= render 'options' %>
-</tr>
-</table>
 
-<%=submit_tag @qcount == @qindex + 1 ? 'Finish' : 'Next →', class: 'btn btn-primary btn-large next-question' %>
-<% end %>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>OnlineExam</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div class="container">
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> </a>
+          <a class="brand" href="#"> Cosmicvent </a>
+        
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><%= link_to "Home", root_path %></li>
+              <% if  user_signed_in? && (current_user.role == "superadmin")  %>
+              <li><%= link_to "Users", test_users_path%></li>
+              <% end %>
+           </ul>
+          </div>
+          
+          <div id="user_nav">
+               <% if user_signed_in? %>
+                           Logged in as <strong><%= current_user.email %></strong>.
+                       <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
+                       <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+                     <% else %>
+                             <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
+                         <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+                <% end %>
+          </div>               
+        </div> <!-- navbar inner !-->
+   </div> <!-- navbar navbar - fixed - top !-->
+ 
+   <div id="question-container">
+     <fieldset> 
+     <div id="exam-desc">
+       <h4> <%= @exam.title %></h4>
+     </div>
+     <div id="time-holder"> 
+      <span id="time-left" class="unselectable">
+        <%= render 'time_left' %>
+      </span>
+    </div>
+    <div id="question">
+     <%= form_tag "/u/exam/#{@exam.id}/answer/#{@qindex+1}" do %>
+       <fieldset> 
+       <legend> Q1 </legend>
+      <table class="question-table"> 
+        <tbody>
+          <tr>
+         <td>
+           <%= @question.title %>
+         </td>
+        </tr>
+        <tr>
+         <td>
+           <%= @question.description %>
+         </td>
+        </tr>
+        <tr>
+         <td>
+           <%= render 'options' %>
+          </td>
+           </tr>      
+         </tbody>
+       </table>
+
+        <%=submit_tag @qcount == @qindex + 1 ? 'Finish' : 'Next →', class: 'btn btn-primary btn-large next-question' %>
+        </fieldset>
+        <% end %>
+      </div><!--question div ends here !-->
+      
+      <div id="question-nav">
+    <table class="table table-stripped table-bordered .table-condensed">
+      <thead>
+        <th> Review Questions</th>
+      </thead>
+      <tbody>
+      <tr><td> Question 1</td> </tr>
+      <tr><td> Question 2</td> </tr>
+      <tr><td> Question 4</td> </tr>
+      <tr><td> Question 5</td> </tr>
+      <tr><td> Question 6</td> </tr>
+      <tr><td> Question 7</td> </tr>
+      <tr><td> Question 8</td> </tr>
+      <tr><td> Question 9</td> </tr>
+      <tr><td> Question 10</td> </tr>
+       </tbody>
+   </table>
+ </div>
+
+ <div id="question-footer-nav">
+   <button>Previous Question </button> 
+ </div>
+  </div> 
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
 
 <script type="text/javascript">
   var timeLeft = document.getElementById('time-left')

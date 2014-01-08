@@ -13,19 +13,6 @@
 
 }
 
-
-#exam_container_table th {
-  padding: 10px;
-  border: 2px solid rgb(149,149,160);
-
-}
-
-
-#exam_container_table td {
-  padding: 10px;
-  border: 2px solid silver;
-}
-
 #time-left {
  float: right;
  color: red;
@@ -33,5 +20,55 @@
 
 }
 
+.navbar.navbar-fixed-top
+{
+ float: left;
+ padding: 5px;
+}
+
+#question-container{
+float: left;
+padding-top: 60px;
+min-width: 100%
+
+}
 
 
+#exam-desc{
+float: left;
+width: 90%;
+height: 40px;
+}
+
+#time-holder{
+float: right;
+width: 10%;
+height: 40px;
+}
+
+#question{
+
+  float: left;
+  width: 80%;
+}
+
+#question-nav{
+  float: right;
+  width: 15%;
+  margin-top: 40px;
+}
+
+#question-footer-nav{
+  float: left;
+  width: 80%;
+}
+
+.question-table{
+  margin: 0 left;
+  border-spacing: 5px;
+}
+
+.question-table th, td{
+  padding: 10px;
+
+}
