@@ -21,7 +21,8 @@
   </div>
   <div class="field">
     <%= f.label :role %><br>
-    <%= f.text_field :role %>
+    <%=  select_tag(:role, options_for_select([['Tutor', 'admin'], ['Student', 'student']],'student')) %>
+  
   </div>
   <div class="field">
     <%= f.label :password %><br>

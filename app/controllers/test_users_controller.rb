@@ -20,6 +20,7 @@ class TestUsersController < ApplicationController
 
   # GET /test_users/1/edit
   def edit
+    
   end
 
   # POST /test_users
@@ -45,9 +46,15 @@ class TestUsersController < ApplicationController
   # PATCH/PUT /test_users/1
   # PATCH/PUT /test_users/1.json
   def update
+    @test_user.name = params[:user][:name]
+    @test_user.email = params[:user][:email]
+    @test_user.role = params[:user][:role]
+    @test_user.password = params[:user][:password] if params[:user][:password] != ""
+
+    
     respond_to do |format|
-      if @test_user.update(test_user_params)
-        format.html { redirect_to @test_user, notice: 'Test user was successfully updated.' }
+      if @test_user.update()
+        format.html { redirect_to test_users_path, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

@@ -1,6 +1,38 @@
 <h1>Editing test_user</h1>
 
-<%= render 'form' %>
+<%= form_for @test_user, :url => url_for(:controller => 'test_users', :action => 'update')  do |f|%>
+  <% if @test_user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@test_user.errors.count, "error") %> prohibited this test_user from being saved:</h2>
 
-<%= link_to 'Show', @test_user %> |
+      <ul>
+      <% @test_user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :role %><br>
+    <%=  select_tag(:role, options_for_select([['Tutor', 'admin'], ['Student', 'student']],@test_user.role)) %>
+  
+  </div>
+  <div class="field">
+    <%= f.label :password %><br>
+    <%= f.text_field :password %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+<%= link_to "Show", {:controller => "test_users", :action => "update", :id => @test_user.id } %>
 <%= link_to 'Back', test_users_path %>
