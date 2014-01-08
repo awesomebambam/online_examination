@@ -1,6 +1,9 @@
 class TestUsersController < ApplicationController
   before_action :set_test_user, only: [:show, :edit, :update, :destroy]
-
+  before_action :is_superadmin
+  before_filter :authenticate_user!
+  
+  # GET /exams
   # GET /test_users
   # GET /test_users.json
   def index
@@ -77,6 +80,13 @@ class TestUsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_test_user
       @test_user = User.find(params[:id])
+    end
+    
+    # Check if user is a superadmin
+    def is_superadmin
+      if (current_user.role != "superadmin")
+        redirect_to root_path
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
