@@ -15,7 +15,7 @@ OnlineExamination::Application.routes.draw do
 
 
   namespace :u do
-    get 'exam/:id/take' => 'exams#take'
+    get 'exam/:id/take' => 'exams#question'
     get 'exam/:id/question/:qindex', controller: 'exams', action: 'question'
     post 'exam/:id/answer/:qindex', controller: 'exams', action: 'answer'
     get 'exam/:id/result' => 'exams#result'

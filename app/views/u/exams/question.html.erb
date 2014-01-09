@@ -48,7 +48,6 @@
       </span>
     </div>
     <div id="question">
-     <%= form_tag "/u/exam/#{@exam.id}/answer/#{@qindex+1}" do %>
        <fieldset> 
        <legend> Q1 </legend>
       <table class="question-table"> 
@@ -69,36 +68,36 @@
          </tbody>
        </table>
 
-          <%=submit_tag @qcount == @qindex + 1 ? 'Finish' : 'Next →', class: 'btn btn-inverse btn-small next-question', id:'next-question' %>
-        <% end %>
       </div><!--question div ends here !-->
+      <div id="exam-start-button" class="offset3 span6">
       
-      <div id="question-nav" >
+        <legend> Instructions: </legend> 
+        <p><%= @exam.description %> </p>
+       
+       <button class="btn btn-primary btn-large active" onclick="renderFirstQuestion()"><i class="icon-white icon-time"></i> Start</button> 
+      </div>      
+      <div id="question-nav">
     <table id="q-nav-table" class="table .table-condensed">
       <thead>
         <th class="q-nav-head"> Review Questions</th>
       </thead>
       <tbody>
-      <tr><td><button type="button" class="btn btn-warning ">Q1</button></td></tr>
-      <tr><td><button type="button" class="btn btn-warning ">Q2</button></td></tr>
-      <tr><td><button type="button" class="btn btn-warning ">Q3</button></td></tr>
-      <tr><td><button type="button" class="btn btn-warning">Q4</button></td></tr>
-      <tr><td><button type="button" class="btn btn-danger">Q5</button></td></tr>
-      <tr><td><button type="button" class="btn btn-success">Q6</button></td></tr>
-      <tr><td><button type="button" class="btn btn-success">Q7</button></td></tr>
-      <tr><td><button type="button" class="btn btn-success">Q8</button></td></tr>
-      <tr><td><button type="button" class="btn btn-success">Q9</button></td></tr>
-       </tbody>
-   </table>
- </div>
+      <tr> <td>
+      <div id="question-nav-button"> 
+      <button type="button" class="btn btn-danger" onclick="renderQuestion(0)">Q1</button>
+      </div>
+      </td></tr>
+      </tbody>
+      </table>
+      </div>
 
         <div id="question-footer-nav">
         <div id="button-prev-next" class="pull-right"> 
-          <button class="btn btn-inverse btn-small" onclick="nextQuestion()">Next <i class="icon-white icon-arrow-right"></i> </button>
-          <button class="btn btn-inverse btn-small"><i class="icon-white icon-arrow-left"></i> Prev </button>
+          <button id ="next-question-button" class="btn btn-inverse btn-small" onclick="renderPreviousQuestion(0)"><i class="icon-white icon-arrow-left"></i> Prev </button>
+          <button id = "prev-question-button" class="btn btn-inverse btn-small" onclick="renderNextQuestion(0)">Next <i class="icon-white icon-arrow-right"></i> </button>
         </div>
 
-          <div id="button-prev-next" class="pull-left"> 
+        <div id="button-end-test" class="pull-left"> 
             <button class="btn btn-warning">End test <i class="icon-white icon-exclamation-sign"></i></button>
       </fieldset>
           
