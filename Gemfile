@@ -14,7 +14,8 @@ gem 'bson_ext'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 gem 'pry'
-
+# Gon lets us access ruby objects in javascript
+gem 'gon'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 

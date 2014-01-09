@@ -6,13 +6,19 @@ class U::ExamsController < ApplicationController
      session[:questions] = 0
      session[:start_time] = Time.now
      @exam = Exam.find(params[:id])
+     @questions = @exam.questions 
+       
    end
 
    def question
+      
      @qindex = params[:qindex].to_i - 1
      @exam = Exam.find(params[:id])
      @qcount = @exam.questions.count
      @question = @exam.questions.order_by(:created_at => 'ASC')[@qindex]
+     @questions= @exam.questions
+     remove_answer_from_question 
+     gon.questions = @questions
    end
 
    def answer
@@ -45,7 +51,11 @@ class U::ExamsController < ApplicationController
    def result
      @exam = Exam.find(params[:id])
    end
-
-
+  
+    def remove_answer_from_question
+     @questions.each do   |question|
+      question.correct_option = ""
+     end
+    end
 
 end

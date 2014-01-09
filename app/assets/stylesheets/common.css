@@ -49,16 +49,21 @@ height: 40px;
 #question{
 
   float: left;
-  width: 80%;
+  width: 88%;
 }
 
 #question-nav{
   float: right;
-  width: 15%;
+  width: 10%;
   margin-top: 40px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  border-spacing: 0px;
+  height: 400px;
 }
 
 #question-footer-nav{
+  clear: both;
   float: left;
   width: 80%;
 }
@@ -72,3 +77,9 @@ height: 40px;
   padding: 10px;
 
 }
+
+#q-nav-table th{
+  border-top: 1px solid #dddddd;
+}
+
+

@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>OnlineExam</title>
+<title>OnlineExam</title>
+  <%= include_gon %>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
 <div class="container">
   <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
@@ -39,7 +39,6 @@
    </div> <!-- navbar navbar - fixed - top !-->
  
    <div id="question-container">
-     <fieldset> 
      <div id="exam-desc">
        <h4> <%= @exam.title %></h4>
      </div>
@@ -55,49 +54,54 @@
       <table class="question-table"> 
         <tbody>
           <tr>
-         <td>
-           <%= @question.title %>
+            <td id="qTitle">
          </td>
         </tr>
         <tr>
-         <td>
-           <%= @question.description %>
+         <td id="qDescription">
          </td>
         </tr>
         <tr>
-         <td>
-           <%= render 'options' %>
-          </td>
+         <td id="qOptions">
+          <div id="questionOptions"></div> 
+         </td>
            </tr>      
          </tbody>
        </table>
 
-        <%=submit_tag @qcount == @qindex + 1 ? 'Finish' : 'Next →', class: 'btn btn-primary btn-large next-question' %>
-        </fieldset>
+          <%=submit_tag @qcount == @qindex + 1 ? 'Finish' : 'Next →', class: 'btn btn-inverse btn-small next-question', id:'next-question' %>
         <% end %>
       </div><!--question div ends here !-->
       
-      <div id="question-nav">
-    <table class="table table-stripped table-bordered .table-condensed">
+      <div id="question-nav" >
+    <table id="q-nav-table" class="table .table-condensed">
       <thead>
-        <th> Review Questions</th>
+        <th class="q-nav-head"> Review Questions</th>
       </thead>
       <tbody>
-      <tr><td> Question 1</td> </tr>
-      <tr><td> Question 2</td> </tr>
-      <tr><td> Question 4</td> </tr>
-      <tr><td> Question 5</td> </tr>
-      <tr><td> Question 6</td> </tr>
-      <tr><td> Question 7</td> </tr>
-      <tr><td> Question 8</td> </tr>
-      <tr><td> Question 9</td> </tr>
-      <tr><td> Question 10</td> </tr>
+      <tr><td><button type="button" class="btn btn-warning ">Q1</button></td></tr>
+      <tr><td><button type="button" class="btn btn-warning ">Q2</button></td></tr>
+      <tr><td><button type="button" class="btn btn-warning ">Q3</button></td></tr>
+      <tr><td><button type="button" class="btn btn-warning">Q4</button></td></tr>
+      <tr><td><button type="button" class="btn btn-danger">Q5</button></td></tr>
+      <tr><td><button type="button" class="btn btn-success">Q6</button></td></tr>
+      <tr><td><button type="button" class="btn btn-success">Q7</button></td></tr>
+      <tr><td><button type="button" class="btn btn-success">Q8</button></td></tr>
+      <tr><td><button type="button" class="btn btn-success">Q9</button></td></tr>
        </tbody>
    </table>
  </div>
 
- <div id="question-footer-nav">
-   <button>Previous Question </button> 
+        <div id="question-footer-nav">
+        <div id="button-prev-next" class="pull-right"> 
+          <button class="btn btn-inverse btn-small" onclick="nextQuestion()">Next <i class="icon-white icon-arrow-right"></i> </button>
+          <button class="btn btn-inverse btn-small"><i class="icon-white icon-arrow-left"></i> Prev </button>
+        </div>
+
+          <div id="button-prev-next" class="pull-left"> 
+            <button class="btn btn-warning">End test <i class="icon-white icon-exclamation-sign"></i></button>
+      </fieldset>
+          
  </div>
   </div> 
     </div>
@@ -108,6 +112,8 @@
 </html>
 
 <script type="text/javascript">
+
+
   var timeLeft = document.getElementById('time-left')
   
   var padTwoZeros = function(num){
