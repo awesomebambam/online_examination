@@ -6,6 +6,7 @@ window.answers =  {};
 window.flagged = {};
 window.previousQuestion = 0;
 window.checkedOption = -1;
+
 $(function(){
        qIndex = 0; 
       $('a.take-exam').click(function(e){
@@ -17,12 +18,7 @@ $(function(){
        renderNextQuestion(); 
       })
 
-      $("#buttonOptions").click(function(e){
-       console.log("buttonOptions"); 
-       alert ("You clicked buttonOptions"); 
-      });
-    
-      document.getElementById("result").hidden = true;
+      $("#result-container").hide();
       lastQuestionIndex = gon.questions.length - 1;
       if(!exam_started){
         hide_question_div(); 
@@ -31,51 +27,34 @@ $(function(){
 });
 
 function hide_question_div(){
-
-      question_container =  document.getElementById("question");
-      question_container.hidden = true;
-      question_footer_nav =  document.getElementById("question-footer-nav");
-      question_footer_nav.hidden = true;
-      question_nav =  document.getElementById("question-nav");
-      question_nav.hidden = true;
+      $("#question").hide();
+      $("#question-footer-nav").hide();
+      $("#question-nav").hide();
       $("#time-left").hide();
-
 }
 
 function display_question_div(){
-      question_container =  document.getElementById("question");
-      question_container.hidden = false;
-      question_footer_nav =  document.getElementById("question-footer-nav");
-      question_footer_nav.hidden = false;   
-      question_nav =  document.getElementById("question-nav");
-      question_nav.hidden = false;
-      exam_start_button =  document.getElementById("exam-start-button");
-      exam_start_button.hidden = true;
-
+      $("#question").show();
+      $("#question-footer-nav").show();
+      $("#question-nav").show();
+      $("#exam-start-button").hide();
 }
 
 function renderNextQuestion(questionNo){
-   if (questionNo == 0 || questionNo == -1){
-  qIndex += 1;
-   }
-  renderQuestion(qIndex);
+   if (questionNo == 0 || questionNo == -1) qIndex += 1;
+   renderQuestion(qIndex);
 }
 
 function renderPreviousQuestion(questionNo){
-  if (questionNo == 0){
-   window.qIndex -= 1;
-  }
+  if (questionNo == 0) qIndex -= 1;
   renderQuestion(qIndex);
 }
+
 function renderFirstQuestion(){
     populateQuestionNavBar();
     window.qIndex = 0;
     window.questionNo = 0;
     renderQuestion(0);
-}
-
-function renderQuestion(){
-
 }
 
 function renderQuestion(questionNo){
@@ -177,7 +156,7 @@ function saveAnswer(){
 
 
 function showResults(){
-   
+ saveAnswer();   
   $.ajax({
             type: "POST",
             url: '/u/exam/' + gon.eid.$oid + '/answer', 
