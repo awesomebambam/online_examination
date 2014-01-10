@@ -22,19 +22,25 @@ $(function(){
        alert ("You clicked buttonOptions"); 
       });
     
-
+      document.getElementById("result").hidden = true;
       lastQuestionIndex = gon.questions.length - 1;
       if(!exam_started){
+        hide_question_div(); 
+        qIndex = 0;
+      }
+});
+
+function hide_question_div(){
+
       question_container =  document.getElementById("question");
       question_container.hidden = true;
       question_footer_nav =  document.getElementById("question-footer-nav");
       question_footer_nav.hidden = true;
       question_nav =  document.getElementById("question-nav");
       question_nav.hidden = true;
-      qIndex = 0;
-      }
-});
+      $("#time-left").hide();
 
+}
 
 function display_question_div(){
       question_container =  document.getElementById("question");
@@ -171,8 +177,24 @@ function saveAnswer(){
 
 
 function showResults(){
+   
+  $.ajax({
+            type: "POST",
+            url: '/u/exam/' + gon.eid.$oid + '/answer', 
+            data: {
+              data: answers, 
+                    },
+            success: function (data) {
+                       hide_question_div();
+                       var $response = $(data);
+                       var result_data = $response.find('#result-container').html();
+                       debugger;
+                       
+                       $('#result').append(result_data);
+                       $('#result').show();
+                    }
+        });
 
-alert("Waiting ..");
 
 }
 
