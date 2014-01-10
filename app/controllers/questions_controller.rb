@@ -62,7 +62,7 @@ class QuestionsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def question_params
-    params.require(:question).permit(:title, :description,:correct_option)
+    params.require(:question).permit(:title, :description,:correct_option, :selected_option, :flagged)
     
     params.require(:question).tap do |whitelisted|
       whitelisted[:options] = params[:question][:options]

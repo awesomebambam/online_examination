@@ -4,6 +4,8 @@ class Question
   field :description, type: String
   field :options, type: Hash
   field :correct_option, type: String
+  field :selected_option, type: String
+  field :flagged, type: Boolean
 
   belongs_to :exam
 
