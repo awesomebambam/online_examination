@@ -1,46 +1,43 @@
-
 <!DOCTYPE html>
 <html>
 <head>
 <title>OnlineExam</title>
-  <%= include_gon %>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
+<%= include_gon %>
+<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+<%= csrf_meta_tags %>
 </head>
 <body>
 <div class="container">
   <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> </a>
+      <a class="brand" href="#"> Cosmicvent </a>
+      <div class="nav-collapse">
+        <ul class="nav">
+          <li><%= link_to "Home", root_path %></li>
+          <% if  user_signed_in? && (current_user.role == "superadmin")  %>
+            <li><%= link_to "Users", test_users_path%></li>
+        <% end %>
+        </ul>
+      </div>
 
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> </a>
-          <a class="brand" href="#"> Cosmicvent </a>
-        
-          <div class="nav-collapse">
-            <ul class="nav">
-              <li><%= link_to "Home", root_path %></li>
-              <% if  user_signed_in? && (current_user.role == "superadmin")  %>
-              <li><%= link_to "Users", test_users_path%></li>
-              <% end %>
-           </ul>
-          </div>
-          
-          <div id="user_nav">
-               <% if user_signed_in? %>
-                           Logged in as <strong><%= current_user.email %></strong>.
-                       <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-                       <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
-                     <% else %>
-                             <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
-                         <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
-                <% end %>
-          </div>               
-        </div> <!-- navbar inner !-->
-   </div> <!-- navbar navbar - fixed - top !-->
- 
-   <div id="question-container">
+      <div id="user_nav">
+        <% if user_signed_in? %>
+          Logged in as <strong><%= current_user.email %></strong>.
+        <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+      <% else %>
+          <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
+        <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+      <% end %>
+      </div>               
+    </div> <!-- navbar inner !-->
+  </div> <!-- navbar navbar - fixed - top !-->
+
+  <div id="question-container">
     <div id="exam-desc">
-       <h4> <%= @exam.title %></h4>
+      <h4> <%= @exam.title %></h4>
     </div>
     <div id="time-holder"> 
       <span id="time-left" class="unselectable">
@@ -50,59 +47,57 @@
     <div id="result">
     </div>
     <div id="question">
-        <fieldset> 
-       <legend> Q1 </legend>
-      <table class="question-table"> 
-        <tbody>
+      <fieldset> 
+        <legend> Q1 </legend>
+        <table class="question-table"> 
+          <tbody>
           <tr>
             <td id="qTitle">
-         </td>
-        </tr>
-        <tr>
-         <td id="qDescription">
-         </td>
-        </tr>
-        <tr>
-         <td id="qOptions">
-          <div id="questionOptions"></div> 
-         </td>
-       </tr>
-       <tr><td>
-           <button id="prev-question-button" class="btn btn-info btn-small" onclick="renderPreviousQuestion(0)"><i class="icon-white icon-arrow-left"></i> Prev </button>
-           <button id="flag-button"          class="btn btn-info btn-small" onclick="flagQuestion" ><i class="icon-white icon-flag"></i> Flag</button>
-           <button id="clear-options-button" class="btn btn-info btn-small" onclick="clearOptions()">clear options</button>
-           <button id="next-question-button" class="btn btn-info btn-small" onclick="renderNextQuestion(0)">Next <i class="icon-white icon-arrow-right"></i> </button>
-       </td></tr>
-         </tbody>
-       </table>
+            </td>
+          </tr>
+          <tr>
+            <td id="qDescription">
+            </td>
+          </tr>
+          <tr>
+            <td id="qOptions">
+              <div id="questionOptions"></div> 
+            </td>
+          </tr>
+          <tr><td>
+              <button id="prev-question-button" class="btn btn-info btn-small" onclick="renderPreviousQuestion(0)"><i class="icon-white icon-arrow-left"></i> Prev </button>
+              <button id="flag-button"          class="btn btn-info btn-small" onclick="flagQuestion" ><i class="icon-white icon-flag"></i> Flag</button>
+              <button id="clear-options-button" class="btn btn-info btn-small" onclick="clearOptions()">clear options</button>
+              <button id="next-question-button" class="btn btn-info btn-small" onclick="renderNextQuestion(0)">Next <i class="icon-white icon-arrow-right"></i> </button>
+          </td></tr>
+          </tbody>
+        </table>
 
       </div><!--question div ends here !-->
-     <div id="exam-start-button" class="offset3 span6">
-         <legend> Instructions: </legend> 
-         <p><%= @exam.notes %> </p>
-         <button class="btn btn-primary btn-large active" onclick="renderFirstQuestion()"><i class="icon-white icon-time"></i> Start</button> 
-     </div>      
+      <div id="exam-start-button" class="offset3 span6">
+        <legend> Instructions: </legend> 
+        <p><%= simple_format(@exam.notes) %> </p>
+        <button class="btn btn-primary btn-large active" onclick="renderFirstQuestion()"><i class="icon-white icon-time"></i> Start</button> 
+      </div>      
       <div id="question-nav">
-           <table id="q-nav-table" class="table .table-condensed">
-      <thead>
-        <th class="q-nav-head"> Review Questions</th>
-      </thead>
-      <tbody>
-      <tr> <td>
-      <div id="question-nav-button"> 
-      </div>
-      </td></tr>
-      <tr><td>
-      </td></tr>
-      </tbody>
-      </table>
+        <table id="q-nav-table" class="table .table-condensed">
+          <thead>
+            <th class="q-nav-head"> Review Questions</th>
+          </thead>
+          <tbody>
+          <tr> <td>
+              <div id="question-nav-button"> 
+              </div>
+          </td></tr>
+          </tbody>
+        </table>
       </div>
     </div> 
     <div id="end-test-div" class="pull-right"> 
-          <button class="btn btn-danger" onclick="showResults()">End Test <i class="icon-white icon-exclamation-sign"></i></button>
+      <button class="btn btn-danger" onclick="showResults()">End Test <i class="icon-white icon-exclamation-sign"></i></button>
     </div>
-      </fieldset>
-  </div> 
+  </fieldset>
+</div> 
     </div>
   </div>
 </div>
@@ -113,18 +108,18 @@
 <script type="text/javascript">
 
 
-  var timeLeft = document.getElementById('time-left')
-  
-  var padTwoZeros = function(num){
-    return ('0' + num).slice(-2)
-  }
+var timeLeft = document.getElementById('time-left')
 
-  var updateTimeSpan = function(hours, minutes, seconds){
-    timeLeft.innerHTML = padTwoZeros(hours) + ":" + padTwoZeros(minutes) + ":" + padTwoZeros(seconds)
-  }
+var padTwoZeros = function(num){
+  return ('0' + num).slice(-2)
+}
 
-  var updateTimeLeft = function() {
-    tokens = timeLeft.innerHTML.split(':')
+var updateTimeSpan = function(hours, minutes, seconds){
+  timeLeft.innerHTML = padTwoZeros(hours) + ":" + padTwoZeros(minutes) + ":" + padTwoZeros(seconds)
+}
+
+var updateTimeLeft = function() {
+  tokens = timeLeft.innerHTML.split(':')
     hours = +tokens[0]
     minutes = +tokens[1]
     seconds = +tokens[2]
@@ -132,15 +127,15 @@
     seconds --
     if (seconds <= 0) {
       seconds = 60
-      minutes --
-      if (minutes <= 0) {
-        minutes = 60
-        hours --
-      }
+        minutes --
+        if (minutes <= 0) {
+          minutes = 60
+            hours --
+        }
     }
 
-    updateTimeSpan(hours, minutes, seconds)
+  updateTimeSpan(hours, minutes, seconds)
     setTimeout(updateTimeLeft, 1000)
-  }
-  setTimeout(updateTimeLeft, 1000)
+}
+setTimeout(updateTimeLeft, 1000)
 </script>

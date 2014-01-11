@@ -25,7 +25,6 @@ class ExamsController < ApplicationController
   # POST /exams.json
   def create
     @exam = Exam.new(exam_params)
-
     respond_to do |format|
       if @exam.save
         format.html { redirect_to @exam, notice: 'Exam was successfully created.' }
@@ -41,7 +40,7 @@ class ExamsController < ApplicationController
   # PATCH/PUT /exams/1.json
   def update
     respond_to do |format|
-      if @exam.update(exam_params)
+    if @exam.update(exam_params)
         format.html { redirect_to @exam, notice: 'Exam was successfully updated.' }
         format.json { head :no_content }
       else
@@ -71,4 +70,5 @@ class ExamsController < ApplicationController
     def exam_params
       params.require(:exam).permit(:title, :description, :notes, :time)
     end
+
 end
