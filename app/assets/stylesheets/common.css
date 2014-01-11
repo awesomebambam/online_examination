@@ -82,4 +82,15 @@ height: 40px;
   border-top: 1px solid #dddddd;
 }
 
+.centered {
+  text-align:center;
+}
+
+#end-test-div{
+  padding-right: 10px;
+}
+
+.white-color{
+  color: white;
+}
 

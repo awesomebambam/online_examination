@@ -33,5 +33,5 @@
 
 <br>
 <% if (current_user.role == "admin" || current_user.role == "superadmin") && user_signed_in? %>
-  <button> <%= link_to 'New Exam', new_exam_path %></button>
+  <button class="btn"> <%= link_to 'New Exam', new_exam_path %></button>
 <% end %>

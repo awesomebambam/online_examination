@@ -39,21 +39,18 @@
    </div> <!-- navbar navbar - fixed - top !-->
  
    <div id="question-container">
-     <div id="exam-desc">
+    <div id="exam-desc">
        <h4> <%= @exam.title %></h4>
-     </div>
-     <div id="time-holder"> 
+    </div>
+    <div id="time-holder"> 
       <span id="time-left" class="unselectable">
         <%= render 'time_left' %>
       </span>
     </div>
-    
-
-      <div id="result">
-
-      </div>
+    <div id="result">
+    </div>
     <div id="question">
-       <fieldset> 
+        <fieldset> 
        <legend> Q1 </legend>
       <table class="question-table"> 
         <tbody>
@@ -69,20 +66,24 @@
          <td id="qOptions">
           <div id="questionOptions"></div> 
          </td>
-           </tr>      
+       </tr>
+       <tr><td>
+           <button id="prev-question-button" class="btn btn-info btn-small" onclick="renderPreviousQuestion(0)"><i class="icon-white icon-arrow-left"></i> Prev </button>
+           <button id="flag-button"          class="btn btn-info btn-small" onclick="flagQuestion" ><i class="icon-white icon-flag"></i> Flag</button>
+           <button id="clear-options-button" class="btn btn-info btn-small" onclick="clearOptions()">clear options</button>
+           <button id="next-question-button" class="btn btn-info btn-small" onclick="renderNextQuestion(0)">Next <i class="icon-white icon-arrow-right"></i> </button>
+       </td></tr>
          </tbody>
        </table>
 
       </div><!--question div ends here !-->
-      <div id="exam-start-button" class="offset3 span6">
-      
-        <legend> Instructions: </legend> 
-        <p><%= @exam.description %> </p>
-       
-       <button class="btn btn-primary btn-large active" onclick="renderFirstQuestion()"><i class="icon-white icon-time"></i> Start</button> 
-      </div>      
+     <div id="exam-start-button" class="offset3 span6">
+         <legend> Instructions: </legend> 
+         <p><%= @exam.notes %> </p>
+         <button class="btn btn-primary btn-large active" onclick="renderFirstQuestion()"><i class="icon-white icon-time"></i> Start</button> 
+     </div>      
       <div id="question-nav">
-    <table id="q-nav-table" class="table .table-condensed">
+           <table id="q-nav-table" class="table .table-condensed">
       <thead>
         <th class="q-nav-head"> Review Questions</th>
       </thead>
@@ -91,20 +92,16 @@
       <div id="question-nav-button"> 
       </div>
       </td></tr>
+      <tr><td>
+      </td></tr>
       </tbody>
       </table>
       </div>
-
-        <div id="question-footer-nav">
-        <div id="button-prev-next" class="pull-right"> 
-          <button id ="next-question-button" class="btn btn-inverse btn-small" onclick="renderPreviousQuestion(0)"><i class="icon-white icon-arrow-left"></i> Prev </button>
-          <button id = "prev-question-button" class="btn btn-inverse btn-small" onclick="renderNextQuestion(0)">Next <i class="icon-white icon-arrow-right"></i> </button>
-        </div>
-
-        <div id="button-end-test" class="pull-left"> 
-          <button class="btn btn-warning" onclick="showResults()">End test <i class="icon-white icon-exclamation-sign"></i></button>
+    </div> 
+    <div id="end-test-div" class="pull-right"> 
+          <button class="btn btn-danger" onclick="showResults()">End Test <i class="icon-white icon-exclamation-sign"></i></button>
+    </div>
       </fieldset>
- </div>
   </div> 
     </div>
   </div>

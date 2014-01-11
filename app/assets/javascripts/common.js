@@ -10,8 +10,8 @@ window.checkedOption = -1;
 $(function(){
        qIndex = 0; 
       $('a.take-exam').click(function(e){
-        e.preventDefault()
-        window.open($(this).attr('href'),'exam',"directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=400,height=350");
+       e.preventDefault()
+       window.open($(this).attr('href'),'exam',"directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=400,height=350");
       })
 
       $('a.start-exam').click(function(e){
@@ -19,7 +19,7 @@ $(function(){
       })
 
       $("#result-container").hide();
-      lastQuestionIndex = gon.questions.length - 1;
+      window.lastQuestionIndex = gon.questions.length - 1;
       if(!exam_started){
         hide_question_div(); 
         qIndex = 0;
@@ -31,6 +31,7 @@ function hide_question_div(){
       $("#question-footer-nav").hide();
       $("#question-nav").hide();
       $("#time-left").hide();
+      $("#end-test-div").hide();
 }
 
 function display_question_div(){
@@ -38,6 +39,8 @@ function display_question_div(){
       $("#question-footer-nav").show();
       $("#question-nav").show();
       $("#exam-start-button").hide();
+      $("#time-left").show();
+      $("#end-test-div").show();
 }
 
 function renderNextQuestion(questionNo){
@@ -52,6 +55,7 @@ function renderPreviousQuestion(questionNo){
 
 function renderFirstQuestion(){
     populateQuestionNavBar();
+     display_question_div();
     window.qIndex = 0;
     window.questionNo = 0;
     renderQuestion(0);
@@ -60,33 +64,15 @@ function renderFirstQuestion(){
 function renderQuestion(questionNo){
   window.questionNo = questionNo;
   saveAnswer();
-  var next_question_button = document.getElementById("next-question-button");
-  var prev_question_button = document.getElementById("prev-question-button");
-     if (questionNo == lastQuestionIndex)
-     {
-       prev_question_button.style.visibility = 'hidden'; 
-      }
-     else
-     {  prev_question_button.style.visibility = 'visible'; 
-     }
-     
-     if( questionNo == 0)
-     {
-         next_question_button.style.visibility = 'hidden';
-     }else
-     {
-         next_question_button.style.visibility = 'visible';
-     }
-     window.qIndex = questionNo
-     reset_divs_and_variables();
-     display_question_div();
-     var title = document.getElementById("qTitle");
-     var desc = document.getElementById("qDescription");
+
+     questionNo == lastQuestionIndex ? $("#next-question-button").hide() : $("#next-question-button").show();
+     questionNo == 0                 ? $("#prev-question-button").hide() : $("#prev-question-button").show();
+    
+     qIndex = questionNo
+     $("#questionOptions").html("");  
+     $("#qTitle").html(gon.questions[qIndex].title);
+     $("#qDescription").html(gon.questions[qIndex].description);
      var options = document.getElementById("questionOptions");
-     title.innerHTML = gon.questions[qIndex].title;
-     desc.innerHTML = gon.questions[qIndex].description;
-      
-      
      for ( var key in gon.questions[window.qIndex].options ) { 
       var radio =  document.createElement('input');
           radio.id =  key ;  
@@ -106,13 +92,6 @@ function renderQuestion(questionNo){
     previousQuestion = qIndex;
  } //render next question ends here 
 
-function reset_divs_and_variables(){
-       
-     var options = document.getElementById("questionOptions");
-     options.innerHTML = "";
-
-}//reset divs and variables ends here
-
 function populateQuestionNavBar(){
    var button_div = document.getElementById("question-nav-button");  
    var question_no;
@@ -124,18 +103,14 @@ function populateQuestionNavBar(){
        buttonnode.id = 'Q' + question_no;
        buttonnode.className = 'btn btn-danger';
        buttonnode.onclick =  onClickHandler(question_no-1); 
-                     
        button_div.appendChild(buttonnode);
        $(button_div).append('<td></tr><tr><td>');
        //populate answers,flagged hash
        qid = gon.questions[question_no-1]._id.$oid;
        answers[qid] = '-1'
        flagged[qid] = false;
-     
      } //for
-     
 }//popoulate Question Nav bar ends here 
-
 
 function onClickHandler(i){
    return function(){
@@ -150,8 +125,6 @@ function saveAnswer(){
   var query = 'input\[name\=\"'+ qid + '\"\]:checked';
   gon.questions[previousQuestion].selected_option = $(query, '#questionOptions').val(); 
   answers[qid] = $(query,'#questionOptions').val();
-
-
 }//saveAnswer
 
 
@@ -173,7 +146,9 @@ function showResults(){
                        $('#result').show();
                     }
         });
+}//show results
+
+function clearOptions(){
 
 
 }
-
