@@ -12,25 +12,25 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title %><br>
+    <%= f.label :title %>
     <%= f.text_area :title %>
   </div>
   <div class="field">
-    <%= f.label :description %><br>
+    <%= f.label :description %>
     <%= f.text_area :description %>
   </div>
-    <% i = 1 %>
-    
+ 
+ <% i = 1 %>
    <% @question.options.each do |key, value|%>
   <div class="field">
-    <%= f.label :options , "Option #{i}"%><br>
-    <%= f.text_field  "options[#{i}]",:value => value %>
+    <%= f.label :options , "Option #{i}"%>
+    <%= f.text_area  "options[#{i}]",:value => value %>
   </div>
    <% i = i+1 %>
 <% end %>
 
   <div class="field">
-    <%= f.label :correct_option %><br>
+    <%= f.label :correct_option %>
     <%= f.number_field :correct_option %>
   </div>
   <div class="actions">

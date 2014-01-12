@@ -94,3 +94,16 @@ height: 40px;
   color: white;
 }
 
+
+#exam_description, #exam_notes, #exam_title, #question_title, #question_description{
+min-width: 700px;
+}
+
+#exam_description{
+ min-height: 90px;
+}
+
+#exam_notes{
+  min-height: 270px;
+}
+

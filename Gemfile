@@ -10,7 +10,8 @@ gem 'devise'
 #using mongoid
 gem 'mongoid', github: 'mongoid/mongoid'
 gem 'bson_ext'
-
+#adding editor for text
+gem "bootstrap-wysihtml5-rails", "~> 0.3.1.23"
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 gem 'pry'

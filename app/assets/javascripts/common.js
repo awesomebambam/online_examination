@@ -8,117 +8,57 @@ window.previousQuestion = 0;
 window.checkedOption = -1;
 
 $(function(){
-       qIndex = 0; 
-      $('a.take-exam').click(function(e){
-//       e.preventDefault()
-//       window.open($(this).attr('href'),'exam',"directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=400,height=350");
-      })
+  qIndex = 0; 
+  $('a.take-exam').click(function(e){
+               e.preventDefault()
+               window.open($(this).attr('href'),'exam',"directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=400,height=350");
+  })
 
-      $('a.start-exam').click(function(e){
-       renderNextQuestion(); 
-      })
+  $('a.start-exam').click(function(e){ renderNextQuestion(); })
+  $('#questionOptions').click(function(e){ flag_nav_bar()  })
+  $("#result-container").hide();
 
-      $("#result-container").hide();
-      window.lastQuestionIndex = gon.questions.length - 1;
-      if(!exam_started){
-        hide_question_div(); 
-        qIndex = 0;
-      }
+if(!exam_started){
+  hide_question_div(); 
+  qIndex = 0;
+}
 });
 
-function hide_question_div(){
-      $("#question").hide();
-      $("#question-footer-nav").hide();
-      $("#question-nav").hide();
-      $("#time-left").hide();
-      $("#end-test-div").hide();
-}
-
-function display_question_div(){
-      $("#question").show();
-      $("#question-footer-nav").show();
-      $("#question-nav").show();
-      $("#exam-start-button").hide();
-      $("#time-left").show();
-      $("#end-test-div").show();
-}
-
+//render next question
 function renderNextQuestion(questionNo){
-   if (questionNo == 0 || questionNo == -1) qIndex += 1;
-   renderQuestion(qIndex);
+  if (questionNo == 0 || questionNo == -1) qIndex += 1;
+  renderQuestion(qIndex);
 }
 
+//render previous question
 function renderPreviousQuestion(questionNo){
   if (questionNo == 0) qIndex -= 1;
   renderQuestion(qIndex);
 }
 
+//render first question
 function renderFirstQuestion(){
-    populateQuestionNavBar();
-     display_question_div();
-    window.qIndex = 0;
-    window.questionNo = 0;
-    renderQuestion(0);
+  populateQuestionNavBar();
+  window.lastQuestionIndex = gon.questions.length - 1;
+  display_question_div();
+  window.qIndex = 0;
+  window.questionNo = 0;
+  renderQuestion(0);
 }
 
 function renderQuestion(questionNo){
   window.questionNo = questionNo;
   saveAnswer();
-
-     questionNo == lastQuestionIndex ? $("#next-question-button").hide() : $("#next-question-button").show();
-     questionNo == 0                 ? $("#prev-question-button").hide() : $("#prev-question-button").show();
-    
-     qIndex = questionNo
-     $("#questionOptions").html("");  
-     $("#qTitle").html(gon.questions[qIndex].title);
-     $("#qDescription").html(gon.questions[qIndex].description);
-     var options = document.getElementById("questionOptions");
-     for ( var key in gon.questions[window.qIndex].options ) { 
-      var radio =  document.createElement('input');
-          radio.id =  key ;  
-          radio.type = 'radio';
-          radio.name = gon.questions[window.qIndex]._id.$oid;
-          radio.value = key;
-          checkedOption = answers[radio.name];
-       if ( key == checkedOption )
-       radio.checked = true; 
-
-       options.appendChild(radio);
-       $(options).append(' ');
-       $(options).append(gon.questions[window.qIndex].options[key]);
-       $(options).append('<br><br>');
-       
-     } // for loop ends
-    previousQuestion = qIndex;
- } //render next question ends here 
-
-function populateQuestionNavBar(){
-   var button_div = document.getElementById("question-nav-button");  
-   var question_no;
-     for(question_no = 1;question_no <= gon.questions.length;question_no++ ){
-   var buttonnode = document.createElement('input');
-       buttonnode.type = 'button';  
-       buttonnode.name = 'Q'+ question_no; 
-       buttonnode.value = 'Q' + question_no;
-       buttonnode.id = 'Q' + question_no;
-       buttonnode.className = 'btn btn-danger';
-       buttonnode.onclick =  onClickHandler(question_no-1); 
-       button_div.appendChild(buttonnode);
-       $(button_div).append('<td></tr><tr><td>');
-       //populate answers,flagged hash
-       qid = gon.questions[question_no-1]._id.$oid;
-       answers[qid] = '-1'
-       flagged[qid] = false;
-     } //for
-}//popoulate Question Nav bar ends here 
-
-function onClickHandler(i){
-   return function(){
-     renderQuestion(i);
-     return false;
-   };
-}//onclickhandler to avoid for loop closure
-
+  //Navigation keys NEXT and PREV  
+  questionNo == lastQuestionIndex ? $("#next-question-button").hide() : $("#next-question-button").show();
+  questionNo == 0                 ? $("#prev-question-button").hide() : $("#prev-question-button").show();
+  qIndex = questionNo
+    $("#questionOptions").html("");  
+  $("#qTitle").html(gon.questions[qIndex].title);
+  $("#qDescription").html(gon.questions[qIndex].description);
+  render_radio_button(); 
+  previousQuestion = qIndex;
+} //render next question ends here 
 
 function saveAnswer(){
   var  qid = gon.questions[previousQuestion]._id.$oid;
@@ -129,26 +69,48 @@ function saveAnswer(){
 
 
 function showResults(){
- saveAnswer();   
+  saveAnswer();   
   $.ajax({
-            type: "POST",
-            url: '/u/exam/' + gon.eid.$oid + '/answer', 
-            data: {
-              data: answers, 
-                    },
-            success: function (data) {
-                       hide_question_div();
-                       var $response = $(data);
-                       var result_data = $response.find('#result-container').html();
-                       debugger;
-                       
-                       $('#result').append(result_data);
-                       $('#result').show();
-                    }
-        });
+    type: "POST",
+    url: '/u/exam/' + gon.eid.$oid + '/answer', 
+    data: {
+      data: answers, 
+    },
+    success: function (data) {
+      hide_question_div();
+      var $response = $(data);
+      var result_data = $response.find('#result-container').html();
+      debugger;
+
+      $('#result').append(result_data);
+      $('#result').show();
+    }
+  });
 }//show results
 
-function clearOptions(){
 
+function flagQuestion(){
+  var e = "#Q" + (questionNo+1);
+  var qid = gon.questions[questionNo]._id.$oid;
 
-}
+  if( $(e).attr("class") == "btn btn-warning" ){
+    $(e).removeClass("btn-warning btn-danger");
+    answers[qid] == '-1' || answers[qid] === undefined ? $(e).addClass("btn-danger") : $(e).addClass("btn-success") 
+  }else{ 
+    $(e).removeClass("btn-danger btn-success");
+    $(e).addClass("btn-warning");
+  }
+
+}//flag question
+
+function flag_nav_bar(){
+  var e = "#Q" + (questionNo+1);
+  if($('input:radio:checked').length > 0 && $(e).attr("class") == "btn btn-danger"){      
+     $(e).addClass("btn-success");
+     $(e).removeClass("btn-danger");
+   }
+  if( $('input:radio:checked').length = 0 && (e).attr("class") == "btn btn-success"){
+     $(e).addClass("btn-danger");
+     $(e).removeClass("btn-success");
+   }
+}//flag navbar

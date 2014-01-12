@@ -16,3 +16,8 @@
 //= require turbolinks
 //= require_tree .
 //= require common.js
+//= require hide_and_show_div.js
+//= require bootstrap-wysihtml5
+//= require bootstrap-wysihtml5/locales
+//= require text_editor.js
+//= require render_elements.js

@@ -12,19 +12,19 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title %><br>
+    <%= f.label :title, "Exam Title:" %>
     <%= f.text_area :title %>
   </div>
   <div class="field">
-    <%= f.label :description %><br>
+    <%= f.label :description, "Description:" %>
     <%= f.text_area :description %>
   </div>
   <div class="field">
-    <%= f.label :notes %><br>
+    <%= f.label :notes, "Instructions to students:"%>
     <%= f.text_area :notes %>
   </div>
   <div class="field">
-    <%= f.label :time, "Time (In Minutes)" %><br>
+    <%= f.label :time, "Time (In Minutes):" %>
     <%= f.number_field :time %>
   </div>
   <div class="actions">
