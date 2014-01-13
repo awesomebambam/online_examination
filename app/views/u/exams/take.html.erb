@@ -1,6 +1,44 @@
-<div id = "content">
-  <p> <%= @exam.description %> </p>
-  <p> <%= @exam.notes %></p>
-</div>
-
-<%= link_to 'Start Exam', "/u/exam/#{@exam.id}/question/1" %> 
+<!DOCTYPE html>
+<html>
+<head>
+<title>OnlineExam</title>
+<%= include_gon %>
+<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+<%= csrf_meta_tags %>
+</head>
+<body>
+<div class="container">
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> </a>
+      <a class="brand" href="#"> Cosmicvent </a>
+      <div class="nav-collapse">
+        <ul class="nav">
+          <li><%= link_to "Home", root_path %></li>
+          <% if  user_signed_in? && (current_user.role == "superadmin")  %>
+            <li><%= link_to "Users", test_users_path%></li>
+        <% end %>
+        </ul>
+      </div>
+      <div id="user_nav">
+        <% if user_signed_in? %>
+          Logged in as <strong><%= current_user.email %></strong>.
+        <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+      <% else %>
+          <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
+        <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+      <% end %>
+      </div>               
+    </div> <!-- navbar inner !-->
+  </div> <!-- navbar navbar - fixed - top !-->
+  <div id="content-exam-start">
+      <div id="exam-start-button" class="offset3 span6">
+        <legend> Instructions: </legend> 
+        <p><%= simple_format(@exam.notes) %> </p>
+        <%= button_to "Start", u_start_exam_path, :method => "get", :class => "btn btn-primary btn-large active"%>
+      </div>    
+  </div>
+</body>
+</html>

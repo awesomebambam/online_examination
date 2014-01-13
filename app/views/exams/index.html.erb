@@ -23,7 +23,7 @@
         <td><%= link_to 'Edit', edit_exam_path(exam) %></td>
         <td><%= link_to 'Destroy', exam, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       <% else %>
-        <td><%= link_to 'Take exam', "/u/exam/#{exam.id}/take", class:'take-exam' %> </td>  
+        <td><%= link_to 'Take exam', "/u/exam/#{exam.id}/take" %> </td>  
       <% end %>
     </tr>
     <% end %>

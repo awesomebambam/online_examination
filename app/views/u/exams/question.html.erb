@@ -21,7 +21,6 @@
         <% end %>
         </ul>
       </div>
-
       <div id="user_nav">
         <% if user_signed_in? %>
           Logged in as <strong><%= current_user.email %></strong>.
@@ -74,11 +73,6 @@
         </table>
 
       </div><!--question div ends here !-->
-      <div id="exam-start-button" class="offset3 span6">
-        <legend> Instructions: </legend> 
-        <p><%= simple_format(@exam.notes) %> </p>
-        <button class="btn btn-primary btn-large active" onclick="renderFirstQuestion()"><i class="icon-white icon-time"></i> Start</button> 
-      </div>      
       <div id="question-nav">
         <table id="q-nav-table" class="table .table-condensed">
           <thead>
@@ -109,7 +103,6 @@
 
 
 var timeLeft = document.getElementById('time-left')
-
 var padTwoZeros = function(num){
   return ('0' + num).slice(-2)
 }
@@ -119,23 +112,27 @@ var updateTimeSpan = function(hours, minutes, seconds){
 }
 
 var updateTimeLeft = function() {
+ debugger
   tokens = timeLeft.innerHTML.split(':')
     hours = +tokens[0]
     minutes = +tokens[1]
     seconds = +tokens[2]
 
     seconds --
-    if (seconds <= 0) {
+    if (seconds <= 0 && minutes > 0) {
       seconds = 60
         minutes --
-        if (minutes <= 0) {
+        if (minutes <= 0 && hours > 0) {
           minutes = 60
             hours --
         }
     }
 
-  updateTimeSpan(hours, minutes, seconds)
-    setTimeout(updateTimeLeft, 1000)
+    updateTimeSpan(hours, minutes, seconds);
+    if (seconds <= 0 && minutes <= 0 && hours <= 0)  
+      showResults();
+    else
+    setTimeout(updateTimeLeft, 1000);
 }
 setTimeout(updateTimeLeft, 1000)
 </script>

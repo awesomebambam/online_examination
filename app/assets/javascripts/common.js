@@ -10,18 +10,18 @@ window.checkedOption = -1;
 $(function(){
   qIndex = 0; 
   $('a.take-exam').click(function(e){
-               e.preventDefault()
-               window.open($(this).attr('href'),'exam',"directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=400,height=350");
+//               e.preventDefault()
+//               window.open($(this).attr('href'),'exam',"directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=400,height=350");
   })
 
-  $('a.start-exam').click(function(e){ renderNextQuestion(); })
+//  $('a.start-exam').click(function(e){ renderNextQuestion(); })
   $('#questionOptions').click(function(e){ flag_nav_bar()  })
   $("#result-container").hide();
-
 if(!exam_started){
-  hide_question_div(); 
+  renderFirstQuestion();
+  exam_started = true;
   qIndex = 0;
-}
+  }
 });
 
 //render next question
@@ -38,12 +38,14 @@ function renderPreviousQuestion(questionNo){
 
 //render first question
 function renderFirstQuestion(){
+ // set_session_time(); 
   populateQuestionNavBar();
   window.lastQuestionIndex = gon.questions.length - 1;
   display_question_div();
   window.qIndex = 0;
   window.questionNo = 0;
   renderQuestion(0);
+  
 }
 
 function renderQuestion(questionNo){
@@ -114,3 +116,7 @@ function flag_nav_bar(){
      $(e).removeClass("btn-success");
    }
 }//flag navbar
+
+function check_time_up(){
+   
+}
