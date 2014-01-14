@@ -11,6 +11,8 @@
 // about supported directives.
 //
 //= require jquery
+//= reqiure tinymce
+//= require tinymce-jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require turbolinks

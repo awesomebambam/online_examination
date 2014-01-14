@@ -7,6 +7,7 @@ gem 'rails', '4.0.2'
 #gem 'sqlite3'
 gem 'devise'
 
+gem 'tinymce-rails'
 #using mongoid
 gem 'mongoid', github: 'mongoid/mongoid'
 gem 'bson_ext'
