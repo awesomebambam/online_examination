@@ -99,7 +99,7 @@ height: 40px;
 min-width: 700px;
 }
 
-#exam_description{
+#exam_description {
  min-height: 90px;
 }
 
@@ -109,4 +109,8 @@ min-width: 700px;
 
 #content-exam-start{
 margin-top: 80px;
+}
+
+#question_description{
+  min-height: 200px;
 }
