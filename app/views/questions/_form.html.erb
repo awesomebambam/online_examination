@@ -24,7 +24,7 @@
    <% @question.options.each do |key, value|%>
   <div class="field">
     <%= f.label :options , "Option #{i}"%>
-    <%= f.text_area  "options[#{i}]",:value => value %>
+    <%= f.text_field  "options[#{i}]",:value => value %>
   </div>
    <% i = i+1 %>
 <% end %>

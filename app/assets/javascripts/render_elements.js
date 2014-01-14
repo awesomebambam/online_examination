@@ -51,3 +51,10 @@ function populateQuestionNavBar(){
 function clearOptions(){
  $("input:radio").attr("checked", false);
 }
+
+
+function render_question_no(){
+ 
+  $("#exam_question_no")[0].innerHTML = 'Q' + (qIndex+1); 
+
+}

@@ -49,12 +49,13 @@ function renderFirstQuestion(){
 }
 
 function renderQuestion(questionNo){
+  render_question_no()
   window.questionNo = questionNo;
   saveAnswer();
+  qIndex = questionNo
   //Navigation keys NEXT and PREV  
   questionNo == lastQuestionIndex ? $("#next-question-button").hide() : $("#next-question-button").show();
   questionNo == 0                 ? $("#prev-question-button").hide() : $("#prev-question-button").show();
-  qIndex = questionNo
     $("#questionOptions").html("");  
   $("#qTitle").html(gon.questions[qIndex].title);
   $("#qDescription").html(gon.questions[qIndex].description);
@@ -93,11 +94,10 @@ function showResults(){
 
 function flagQuestion(){
   var e = "#Q" + (questionNo+1);
-  var qid = gon.questions[questionNo]._id.$oid;
 
   if( $(e).attr("class") == "btn btn-warning" ){
     $(e).removeClass("btn-warning btn-danger");
-    answers[qid] == '-1' || answers[qid] === undefined ? $(e).addClass("btn-danger") : $(e).addClass("btn-success") 
+    $('input:radio:checked').length > 0 ? $(e).addClass("btn-success") : $(e).addClass("btn-danger") 
   }else{ 
     $(e).removeClass("btn-danger btn-success");
     $(e).addClass("btn-warning");
