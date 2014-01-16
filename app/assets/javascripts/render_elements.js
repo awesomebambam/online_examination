@@ -50,11 +50,25 @@ function populateQuestionNavBar(){
 
 function clearOptions(){
  $("input:radio").attr("checked", false);
-}
+}//clear options
 
 
 function render_question_no(){
  
   $("#exam_question_no")[0].innerHTML = 'Q' + (qIndex+1); 
 
-}
+}//render question no
+
+
+function render_options(){
+var options = $("#options_div")
+options.html("");
+var no_of_options = $("#no_of_options option:selected").text()
+debugger
+  for(i=1;i<=no_of_options;i++){
+    var label = ('<label for="question_options">Option '+i+'</label> <br/>')
+    var option = $('<input id="question_options['+i+']" name="question[options['+i+']]" type="text" val=""> <br/>')  
+    options.append(label); 
+    options.append(option);
+  }
+}//render options

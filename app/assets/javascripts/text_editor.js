@@ -4,8 +4,11 @@ $(function(){ on_page_load();});
 
 
 function on_page_load(){
+ $("#no_of_options").change(function(e){ render_options() });
  $('textarea.tinymce').blur(function() { save_content()  });
- $(".container").click(function(e){show_tinymce_toolbar()})
+ $(".container").click(function(e){show_tinymce_toolbar()});
+ render_options();
+ 
 }//on_page_load
 
 

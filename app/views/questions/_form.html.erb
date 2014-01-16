@@ -1,39 +1,45 @@
 <%= form_for([@exam, @question]) do |f| %>
   <% if @question.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
+  <div id="error_explanation">
+  <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
 
-      <ul>
-      <% @question.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+  <ul>
+    <% @question.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+  <% end %>
+  </ul>
+</div>
   <% end %>
 
+<div class="field">
+  <%= f.label :title %>
+  <%= f.text_area :title %>
+</div>
+<div class="field">
+  <%= f.label :description %>
+  <%= f.text_area :description %>
+</div>
+
+<div id="no_of_options_container">
+  <%= f.label :no_of_options, "Number of options" %>
+  <%= select_tag(:no_of_options, options_for_select([['3',3],['4',4],['5',5],['6',6], ['7',7]],4)) %>
+</div>
+<% i = 1 %>
+<% j = 5 %>
+<% j.downto(1){ |n| @question.options.merge!("#{n}" => "")} %>
+<% @question.options.each do |key, value|%>
   <div class="field">
-    <%= f.label :title %>
-    <%= f.text_area :title %>
+   <div id="options_div"> 
   </div>
-  <div class="field">
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
- 
- <% i = 1 %>
-   <% @question.options.each do |key, value|%>
-  <div class="field">
-    <%= f.label :options , "Option #{i}"%>
-    <%= f.text_field  "options[#{i}]",:value => value %>
-  </div>
-   <% i = i+1 %>
+</div>
+<% i = i+1 %>
 <% end %>
 
-  <div class="field">
-    <%= f.label :correct_option %>
-    <%= f.number_field :correct_option %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<div class="field">
+  <%= f.label :correct_option %>
+  <%= f.number_field :correct_option %>
+</div>
+<div class="actions">
+  <%= f.submit %>
+</div>
 <% end %>

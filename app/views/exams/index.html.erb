@@ -15,7 +15,7 @@
     <% @exams.each do |exam| %>
       <tr>
         <td><%= exam.title %></td>
-        <td><%= exam.description %></td>
+        <td><%= simple_format(exam.description) %></td>
         <td><%= exam.time %></td>
       <% if (current_user.role == "admin" || current_user.role == "superadmin") && user_signed_in? %>
         <td><%= link_to 'Show/Add Questions', exam_questions_path(exam)%>

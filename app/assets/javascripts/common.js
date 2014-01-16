@@ -17,6 +17,7 @@ $(function(){
 //  $('a.start-exam').click(function(e){ renderNextQuestion(); })
   $('#questionOptions').click(function(e){ flag_nav_bar()  })
   $("#result-container").hide();
+  $("#no_of_options").change(function(e){ render_options()});
 if(!exam_started){
   renderFirstQuestion();
   exam_started = true;

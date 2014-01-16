@@ -5,12 +5,12 @@
   <%  n = n+1 %>
   <p><% @question = question %>
 <strong><%= n %>. Title:</strong>
-  <%= @question.title %>
+  <%= simple_format(@question.title) %>
 </p>
 
 <p>
   <strong>Description:</strong>
-  <%= @question.description %>
+  <%= simple_format(@question.description) %>
 </p>
 
 <p>
